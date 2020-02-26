@@ -1,9 +1,13 @@
 package com.test.api;
 
-import com.test.api.backend.dao.UserDao;
-import com.test.api.entity.User;
+
+import com.test.api.backend.service.BankAccountService;
+
+import com.test.api.entity.BankAccount;
 import org.apache.log4j.Logger;
 import com.test.api.util.SparkUtils;
+
+import java.math.BigDecimal;
 
 import static spark.Spark.get;
 
@@ -14,24 +18,21 @@ public class Main {
         Logger logger = Logger.getLogger(Main.class);
         SparkUtils.createServerWithRequestLog(logger);
 
+        BankAccountService bankAccountService = new BankAccountService();
+
 
 
         get("/hello", (request, response) -> persistUser());
 
-
-
+        get("bankAccount", (request, response) -> bankAccountService.getBankAccountById(1L));
     }
 
+
+
     private static String persistUser(){
-        User newUser = new User();
-        newUser.setFirstName("Ahmed");
-        newUser.setLastName("lastName");
 
-
-        UserDao userDao = new UserDao();
-        userDao.openCurrentSession();
-        userDao.persistUser(newUser);
-        userDao.closeCurrentSession();
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setBalance(new BigDecimal("2000"));
 
         return "user created";
     }

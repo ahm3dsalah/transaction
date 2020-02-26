@@ -1,19 +1,20 @@
 package com.test.api.backend.dao;
 
-import com.test.api.entity.User;
+import com.test.api.entity.BankAccount;
+import com.test.api.entity.BankTransaction;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-public class UserDao {
+public class BankTransactionDao {
 
     private Session currentSession;
 
     private Transaction currentTransaction;
 
-    public UserDao() {
+    public BankTransactionDao() {
     }
 
     public Session openCurrentSession() {
@@ -41,7 +42,7 @@ public class UserDao {
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties());
 
-        configuration.addAnnotatedClass(User.class);
+        configuration.addAnnotatedClass(BankTransaction.class);
         return configuration.buildSessionFactory(builder.build());
     }
 
@@ -61,7 +62,9 @@ public class UserDao {
         this.currentTransaction = currentTransaction;
     }
 
-    public void persistUser(User newUser) {
-        getCurrentSession().save(newUser);
+    public BankAccount getById(Long id) {
+        return getCurrentSession().load(BankAccount.class, id);
+
     }
+
 }
