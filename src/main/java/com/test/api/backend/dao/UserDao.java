@@ -40,6 +40,8 @@ public class UserDao {
         Configuration configuration = new Configuration().configure();
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties());
+
+        configuration.addAnnotatedClass(User.class);
         return configuration.buildSessionFactory(builder.build());
     }
 

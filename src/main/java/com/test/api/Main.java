@@ -14,6 +14,8 @@ public class Main {
         Logger logger = Logger.getLogger(Main.class);
         SparkUtils.createServerWithRequestLog(logger);
 
+
+
         get("/hello", (request, response) -> persistUser());
 
 
