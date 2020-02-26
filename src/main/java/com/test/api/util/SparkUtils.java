@@ -1,4 +1,4 @@
-package util;
+package com.test.api.util;
 
 import org.eclipse.jetty.server.AbstractNCSARequestLog;
 import spark.embeddedserver.EmbeddedServers;

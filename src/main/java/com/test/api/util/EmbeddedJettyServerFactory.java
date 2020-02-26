@@ -1,4 +1,4 @@
-package util;
+package com.test.api.util;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
