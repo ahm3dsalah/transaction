@@ -1,25 +1,40 @@
 package com.test.api.backend.service;
 
-import com.test.api.backend.dao.BankTransactionDao;
+import com.test.api.backend.dao.BankAccountDao;
 import com.test.api.entity.BankAccount;
-import com.test.api.entity.BankTransaction;
 import com.test.api.frontend.views.BankAccountView;
 
 public class BankAccountService {
 
-    private final BankTransactionDao bankTransactionDao;
+    private final BankAccountDao bankAccountDao;
 
     public BankAccountService() {
-        this.bankTransactionDao = new BankTransactionDao();
+        this.bankAccountDao = new BankAccountDao();
     }
     public BankAccountView getBankAccountById(Long bankAccountId) {
-        bankTransactionDao.openCurrentSession();
-        BankAccount bankAccount = bankTransactionDao.getById(bankAccountId);
-        bankTransactionDao.closeCurrentSession();
+        bankAccountDao.openCurrentSession();
+        BankAccount bankAccount = bankAccountDao.getById(bankAccountId);
+        bankAccountDao.closeCurrentSession();
 
         return new BankAccountView.BankAccountViewBuilder()
                 .withId(bankAccount.getId())
                 .withBalance(bankAccount.getBalance())
                 .build();
+    }
+
+    public BankAccount persistBankAccount(BankAccount bankAccount) {
+        bankAccountDao.openCurrentSessionwithTransaction();
+        bankAccountDao.save(bankAccount);
+        bankAccountDao.closeCurrentSessionwithTransaction();
+
+        return bankAccount;
+    }
+
+    public BankAccount getBankAccount(long id) {
+        bankAccountDao.openCurrentSession();
+        BankAccount bankAccount = bankAccountDao.getById(id);
+        bankAccountDao.closeCurrentSession();
+
+        return bankAccount;
     }
 }

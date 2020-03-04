@@ -61,4 +61,15 @@ public class BankAccountDao {
         this.currentTransaction = currentTransaction;
     }
 
+    public BankAccount save(BankAccount bankAccount) {
+        currentSession.save(bankAccount);
+
+        return bankAccount;
+    }
+
+    public BankAccount getById(long id) {
+        BankAccount bankAccount = currentSession.get(BankAccount.class, id);
+        return bankAccount;
+    }
+
 }

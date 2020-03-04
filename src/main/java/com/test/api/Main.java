@@ -22,18 +22,21 @@ public class Main {
 
 
 
-        get("/hello", (request, response) -> persistUser());
+        get("/hello", (request, response) -> persistBankAccount());
 
-        get("bankAccount", (request, response) -> bankAccountService.getBankAccountById(1L));
+        get("/bankAccount", (request, response) -> bankAccountService.getBankAccountById(1L));
     }
 
 
 
-    private static String persistUser(){
+    private static String persistBankAccount(){
 
         BankAccount bankAccount = new BankAccount();
         bankAccount.setBalance(new BigDecimal("2000"));
 
+        BankAccount bankAccount1 = new BankAccountService().persistBankAccount(bankAccount);
+
+        System.out.println(bankAccount1);
         return "user created";
     }
 

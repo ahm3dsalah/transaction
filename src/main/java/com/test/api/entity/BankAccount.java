@@ -18,7 +18,14 @@ public class BankAccount {
     @Column(name = "ba_bank_account_id", nullable = false)
     private Long id;
 
-
     @Column(name = "ba_balance", nullable = false)
     private BigDecimal balance;
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "id=" + id +
+                ", balance=" + balance +
+                '}';
+    }
 }
