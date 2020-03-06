@@ -24,7 +24,7 @@ public class Main {
 
         get("/hello", (request, response) -> persistBankAccount());
 
-        get("/bankAccount", (request, response) -> bankAccountService.getBankAccountById(1L));
+        get("/bankAccount", (request, response) -> bankAccountService.getBankAccountById(1L).toString());
     }
 
 
@@ -36,8 +36,7 @@ public class Main {
 
         BankAccount bankAccount1 = new BankAccountService().persistBankAccount(bankAccount);
 
-        System.out.println(bankAccount1);
-        return "user created";
+        return bankAccount1.toString();
     }
 
 

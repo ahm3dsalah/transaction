@@ -1,3 +1,4 @@
+
 package com.test.api.backend.service;
 
 import com.test.api.backend.dao.BankAccountDao;
@@ -11,30 +12,22 @@ public class BankAccountService {
     public BankAccountService() {
         this.bankAccountDao = new BankAccountDao();
     }
-    public BankAccountView getBankAccountById(Long bankAccountId) {
-        bankAccountDao.openCurrentSession();
-        BankAccount bankAccount = bankAccountDao.getById(bankAccountId);
-        bankAccountDao.closeCurrentSession();
 
-        return new BankAccountView.BankAccountViewBuilder()
+
+    public BankAccountView getBankAccountById(Long bankAccountId) {
+        BankAccount bankAccount = bankAccountDao.getById(bankAccountId);
+
+        BankAccountView bankAccountView =  new BankAccountView.BankAccountViewBuilder()
                 .withId(bankAccount.getId())
                 .withBalance(bankAccount.getBalance())
                 .build();
+
+        return bankAccountView;
     }
 
     public BankAccount persistBankAccount(BankAccount bankAccount) {
-        bankAccountDao.openCurrentSessionwithTransaction();
-        bankAccountDao.save(bankAccount);
-        bankAccountDao.closeCurrentSessionwithTransaction();
 
-        return bankAccount;
-    }
-
-    public BankAccount getBankAccount(long id) {
-        bankAccountDao.openCurrentSession();
-        BankAccount bankAccount = bankAccountDao.getById(id);
-        bankAccountDao.closeCurrentSession();
-
+        bankAccount = bankAccountDao.save(bankAccount);
         return bankAccount;
     }
 }

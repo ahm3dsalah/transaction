@@ -46,4 +46,12 @@ public class BankAccountView {
             return bankAccountView;
         }
     }
+
+    @Override
+    public String toString() {
+        return "BankAccountView{" +
+                "id=" + id +
+                ", balance=" + balance +
+                '}';
+    }
 }
