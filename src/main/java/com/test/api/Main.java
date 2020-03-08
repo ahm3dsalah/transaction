@@ -1,15 +1,15 @@
 package com.test.api;
 
 
-import com.test.api.backend.service.BankAccountService;
-
-import com.test.api.entity.BankAccount;
-import org.apache.log4j.Logger;
+import com.test.api.frontend.controllers.BankAccountController;
+import com.test.api.frontend.views.CreateBankAccountRequestView;
+import com.test.api.util.JsonResponseTransformer;
+import com.test.api.util.RequestMapperUtil;
 import com.test.api.util.SparkUtils;
-
-import java.math.BigDecimal;
+import org.apache.log4j.Logger;
 
 import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class Main {
 
@@ -18,26 +18,13 @@ public class Main {
         Logger logger = Logger.getLogger(Main.class);
         SparkUtils.createServerWithRequestLog(logger);
 
-        BankAccountService bankAccountService = new BankAccountService();
 
+        BankAccountController bankAccountController = new BankAccountController();
 
+        post("/bankAccount", (request, response) ->
+                bankAccountController.createBankAccount(new RequestMapperUtil<CreateBankAccountRequestView>().mapRequest(request, CreateBankAccountRequestView.class))
+                , new JsonResponseTransformer());
 
-        get("/hello", (request, response) -> persistBankAccount());
-
-        get("/bankAccount", (request, response) -> bankAccountService.getBankAccountById(1L).toString());
+        get("/bankAccount/*", (request, response) -> bankAccountController.getBankAccount(request), new JsonResponseTransformer());
     }
-
-
-
-    private static String persistBankAccount(){
-
-        BankAccount bankAccount = new BankAccount();
-        bankAccount.setBalance(new BigDecimal("2000"));
-
-        BankAccount bankAccount1 = new BankAccountService().persistBankAccount(bankAccount);
-
-        return bankAccount1.toString();
-    }
-
-
 }
