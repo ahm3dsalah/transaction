@@ -1,7 +1,6 @@
 package com.test.api.frontend.controllers;
 
 import com.test.api.backend.service.BankAccountService;
-import com.test.api.entity.BankAccount;
 import com.test.api.frontend.views.BankAccountView;
 import com.test.api.frontend.views.CreateBankAccountRequestView;
 import spark.Request;

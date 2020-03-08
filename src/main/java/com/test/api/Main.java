@@ -2,6 +2,8 @@ package com.test.api;
 
 
 import com.test.api.frontend.controllers.BankAccountController;
+import com.test.api.frontend.controllers.TransactionController;
+import com.test.api.frontend.views.BankTransactionRequestView;
 import com.test.api.frontend.views.CreateBankAccountRequestView;
 import com.test.api.util.JsonResponseTransformer;
 import com.test.api.util.RequestMapperUtil;
@@ -20,11 +22,15 @@ public class Main {
 
 
         BankAccountController bankAccountController = new BankAccountController();
+        TransactionController transactionController = new TransactionController();
 
         post("/bankAccount", (request, response) ->
-                bankAccountController.createBankAccount(new RequestMapperUtil<CreateBankAccountRequestView>().mapRequest(request, CreateBankAccountRequestView.class))
-                , new JsonResponseTransformer());
+                bankAccountController.createBankAccount(new RequestMapperUtil<CreateBankAccountRequestView>().mapRequest(request, CreateBankAccountRequestView.class)),
+                new JsonResponseTransformer());
 
         get("/bankAccount/*", (request, response) -> bankAccountController.getBankAccount(request), new JsonResponseTransformer());
+
+        post("/transaction", (request, response) -> transactionController.transferMoney(new RequestMapperUtil<BankTransactionRequestView>().mapRequest(request, BankTransactionRequestView.class)),
+                new JsonResponseTransformer());
     }
 }

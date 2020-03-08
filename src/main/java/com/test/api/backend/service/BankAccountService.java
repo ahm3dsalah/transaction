@@ -21,7 +21,9 @@ public class BankAccountService {
 
 
     public BankAccountView getBankAccountById(Long bankAccountId) {
+        bankAccountDao.openSession();
         BankAccount bankAccount = bankAccountDao.getById(bankAccountId);
+        bankAccountDao.closeCurrentSession();
 
         return bankAccountViewMapper.map(bankAccount);
     }
@@ -32,7 +34,9 @@ public class BankAccountService {
 
         newBankAccount.setBalance(bankAccountRequestView.getBalance());
 
+        bankAccountDao.openSessionWithTransaction();
         newBankAccount = bankAccountDao.save(newBankAccount);
+        bankAccountDao.closeSessionWithTransaction();
         return bankAccountViewMapper.map(newBankAccount);
     }
 }
