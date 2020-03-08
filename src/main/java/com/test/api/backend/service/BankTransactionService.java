@@ -5,7 +5,6 @@ import com.test.api.backend.dao.BankTransactionDao;
 import com.test.api.entity.BankAccount;
 import com.test.api.entity.BankTransaction;
 import com.test.api.frontend.views.BankTransactionRequestView;
-import com.test.api.frontend.views.TransactionSummaryView;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -20,7 +19,7 @@ public class BankTransactionService {
         bankTransactionDao = new BankTransactionDao();
     }
 
-    public TransactionSummaryView createBankTransaction(BankTransactionRequestView requestView) {
+    public void createBankTransaction(BankTransactionRequestView requestView) {
 
         // get bank accounts
         Session session = bankAccountDao.openSessionWithTransaction();
@@ -52,7 +51,5 @@ public class BankTransactionService {
 
         //close transaction
         bankAccountDao.closeSessionWithTransaction();
-
-        return null;
     }
 }

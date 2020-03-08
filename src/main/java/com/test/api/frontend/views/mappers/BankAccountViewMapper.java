@@ -1,4 +1,4 @@
-package com.test.api.frontend.mappers;
+package com.test.api.frontend.views.mappers;
 
 import com.test.api.entity.BankAccount;
 import com.test.api.frontend.views.BankAccountView;

@@ -3,7 +3,7 @@ package com.test.api.backend.service;
 
 import com.test.api.backend.dao.BankAccountDao;
 import com.test.api.entity.BankAccount;
-import com.test.api.frontend.mappers.BankAccountViewMapper;
+import com.test.api.frontend.views.mappers.BankAccountViewMapper;
 import com.test.api.frontend.views.BankAccountView;
 import com.test.api.frontend.views.CreateBankAccountRequestView;
 
