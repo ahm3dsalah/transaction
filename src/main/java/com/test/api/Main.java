@@ -25,7 +25,7 @@ public class Main {
         TransactionController transactionController = new TransactionController();
 
         post("/bankAccount", (request, response) ->
-                bankAccountController.createBankAccount(new RequestMapperUtil<CreateBankAccountRequestView>().mapRequest(request, CreateBankAccountRequestView.class)),
+                        bankAccountController.createBankAccount(new RequestMapperUtil<CreateBankAccountRequestView>().mapRequest(request, CreateBankAccountRequestView.class)),
                 new JsonResponseTransformer());
 
         get("/bankAccount/*", (request, response) -> bankAccountController.getBankAccount(request), new JsonResponseTransformer());
